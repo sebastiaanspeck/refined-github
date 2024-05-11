@@ -119,7 +119,7 @@
 		"p-memoize": "^7.1.1",
 		"prettier": "^3.0.3",
 		"snarkdown": "^2.0.0",
-		"stylelint": "^15.11.0",
+		"stylelint": "^16.5.0",
 		"stylelint-config-prettier": "^9.0.5",
 		"stylelint-config-xo": "^0.22.0",
 		"terser-webpack-plugin": "^5.3.9",
