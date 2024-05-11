@@ -83,7 +83,7 @@
 		"select-dom": "^9.0.0",
 		"shorten-repo-url": "^4.0.1",
 		"strip-indent": "^4.0.0",
-		"text-field-edit": "^4.0.0",
+		"text-field-edit": "^4.1.1",
 		"tiny-version-compare": "^4.0.0",
 		"ts-extras": "^0.11.0",
 		"twas": "^2.1.3",
