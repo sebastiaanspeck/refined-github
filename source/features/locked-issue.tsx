@@ -1,4 +1,3 @@
-import './locked-issue.css';
 import React from 'react';
 import LockIcon from 'octicons-plain-react/Lock';
 import * as pageDetect from 'github-url-detection';
@@ -6,7 +5,6 @@ import {isChrome} from 'webext-detect-page';
 
 import features from '../feature-manager.js';
 import observe from '../helpers/selector-observer.js';
-import {isHasSelectorSupported} from '../helpers/select-has.js';
 
 function LockedIndicator(): JSX.Element {
 	return (
@@ -18,27 +16,25 @@ function LockedIndicator(): JSX.Element {
 }
 
 function addLock(element: HTMLElement): void {
+	const classes = (element.closest('.gh-header-sticky') ? 'mr-2 ' : '') + 'mb-2 rgh-locked-issue';
 	element.after(
-		<LockedIndicator className="mb-2 rgh-locked-issue"/>,
-	);
-}
-
-function addStickyLock(element: HTMLElement): void {
-	element.after(
-		<LockedIndicator className="mr-2 mb-2 rgh-locked-issue"/>,
+		<LockedIndicator className={classes}/>,
 	);
 }
 
 function init(signal: AbortSignal): void {
 	// If reactions-menu exists, then .js-pick-reaction is the second child
 	// Logged out users never have the menu, so they should be excluded
-	observe('.logged-in:has(.js-pick-reaction:first-child) .gh-header-meta > :first-child', addLock, {signal});
-	observe('.logged-in:has(.js-pick-reaction:first-child) .gh-header-sticky .flex-row > :first-child', addStickyLock, {signal});
+	observe(`
+		.logged-in .js-issues-results:has(.js-pick-reaction:first-child) :is(
+			.gh-header-meta > :first-child,
+			.gh-header-sticky .flex-row > :first-child
+		)
+	`, addLock, {signal});
 }
 
 void features.add(import.meta.url, {
 	asLongAs: [
-		isHasSelectorSupported,
 		isChrome,
 	],
 	include: [
